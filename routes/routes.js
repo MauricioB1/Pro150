@@ -6,8 +6,75 @@ const client = new MongoClient("mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb
 const db = client.db("PRO150");
 const collection = db.collection("User");
 
+////////////////////////exports methods to be used in index.js////////////////////////
+
+//Returns the index page
 exports.index = async (req, res) => {
+
+    const items = people();
+    // await client.connect();
+    // const findResult = await collection.find({}).toArray();
+    // console.log("Users found: ", findResult);
+    // client.close();
+
     res.render("index", {
         title: "Website",
     });
+    
 };
+
+exports.signup = async (req, res) => {
+    await client.connect();
+    let user = {
+        Username: req.body.Username,
+        Password: req.body.Password,
+        PFP: req.body.PFP,
+        Bio: req.body.Bio,
+        Edit_History: req.body.Edit_History,
+    };
+    const insertResult = await collection.insertOne(user);
+    client.close();
+    res.redirect("/");
+}
+
+exports.edit = async (req, res) => {
+    await client.connect();
+    const filteredDocs = await collection
+        .find(ObjectId(req.params.id))
+        .toArray();
+    client.close();
+    res.render("edit", {
+        title: "Edit account",
+        user: filteredDocs[0], 
+    });
+};
+
+exports.editUser = async (req, res) => {
+    await client.connect();
+    const updateResult = await collection.updateOne(
+        { _id: ObjectId(req.params.id) },
+        {
+            $set: {
+                Username: req.body.Username,
+                Password: req.body.Password,
+                PFP: req.body.PFP,
+                Bio: req.body.Bio,
+                Edit_History: req.body.Edit_History,
+            },
+        }
+    );
+    client.close();
+    res.redirect("/");
+};
+
+exports.delete = async (req, res) => {
+    await client.connect();
+    const deleteResult = await collection.deleteOne({
+        _id: ObjectId(req.params.id),
+    });
+    client.close();
+    res.redirect("/");
+}
+
+
+
