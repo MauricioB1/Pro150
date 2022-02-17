@@ -1,0 +1,19 @@
+extends layout 
+
+block content 
+    table(class='gridtable')
+        tr
+            th username 
+            th admin
+            th 
+            th 
+        each item in people 
+            tr 
+                td #{item.username}
+                td #{item.admin} 
+                td 
+                    a(href='/admin/' + item._id) Edit 
+                td 
+                    a(href='/delete/' + item._id) Delete 
+    br
+    a(href='/loggedout' class='logout' id='/loggedout') Log Out

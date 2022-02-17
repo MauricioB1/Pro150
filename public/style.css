@@ -1,0 +1,206 @@
+:root{
+	/* font-family: monospace; */
+	font-family: 'Roboto Slab', serif;
+
+	--main-color: #333;
+	--highlight-color: #ffb7ff;
+	--tertiary-color: #889;
+
+	--color1: #df84d7;
+    --color2: #e980a8;
+    --color3: #57b7da;
+    --color4: #5addbf;
+    --color5: #5addbf;
+
+	user-select: none;
+
+	--main-gradient: linear-gradient(-45deg, var(--color1), var(--color2), var(--color3), var(--color4), var(--color5));
+}
+
+@keyframes gradient {
+	0% {background-position: 0% 50%;}
+	50% {background-position: 100% 50%;}
+	100% {background-position: 0% 50%;}
+}
+
+h2{
+	font-size: 1.5em;
+	background: var(--main-gradient);
+	background-size: 800% 1200%;
+	animation: gradient 40s ease infinite;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+}
+
+h3{
+	border-top: 2px solid var(--main-color);
+	padding-top: 3px;
+	text-align: center;
+}
+
+body{
+	background: #444;
+	/* background-size: 800% 1200%; */
+	/* animation: gradient 40s ease infinite; */
+	
+	color: var(--main-color);
+	border-radius: 5px solid var(--tertiary-color);
+}
+
+table, tr, td, th{
+	border: 3px solid var(--main-color);
+	border-collapse: collapse;
+}
+
+/** forms */
+form{
+	border: 2px solid #333;
+	width: fit-content;
+	padding: 3px;
+	border-collapse: collapse;
+	background: var(--main-gradient);
+	background-size: 400% 400%;
+	animation: gradient 40s ease infinite;
+}
+
+input{
+	font-family: 'Roboto Slab', serif;
+	background-color: #0000;
+}
+
+input[type=submit]{
+	font-size: 1em;
+	margin-bottom: 10px;
+	border: none;
+	border-bottom: 2px solid var(--main-color);
+	outline: none;
+	color: var(--main-color);
+	background: linear-gradient(to bottom, transparent 80%, white  98%, transparent );
+	text-decoration: none;
+	cursor: pointer;
+	height: fit-content;
+}
+
+/** Input Boxes */
+input[type=text], input[type=password], input[type=email], input[type=number]
+{
+	padding-left: 5px;
+	outline: none;
+	border: none;
+	background: linear-gradient(to left, transparent, white  98%, transparent );
+	clip-path: inset(0px 0px 0px 3px);
+	border-radius: 2px;
+}
+input[type=text]:hover, input[type=password]:hover, input[type=email]:hover, input[type=number]:hover,
+input[type=text]:focus, input[type=password]:focus, input[type=email]:focus, input[type=number]:focus
+{
+	clip-path: none;
+	
+}
+/** END Input Boxes */
+/** END Forms */
+
+
+select, option{
+	outline: none;
+	border: none;
+	font-family: 'Roboto Slab', serif;
+	margin-left: 15px;
+	border-radius: 2px;
+
+	display: inline-grid;
+	grid-template-columns: 1fr;
+}
+
+.account{
+	margin: 3px;
+	display: inline-grid;
+	grid-template-columns: 0.5fr 1fr;
+}
+/** end forms */
+
+a{
+	font-size: 1em;
+	margin-bottom: 10px;
+	border: none;
+	border-bottom: 2px solid var(--main-color);
+	outline: none;
+	background: linear-gradient(to bottom, transparent 80%, white  98%, transparent );
+	color: var(--main-color);
+	text-decoration: none;
+	cursor: pointer;
+	height: fit-content;
+}
+
+#topRow{
+	background-color: #333;
+	height: 50px;
+	margin: -8px;
+	margin-bottom: 0px;
+	margin-top: -16px;
+
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: center;
+}
+
+#timeStamp{
+	background-color: white;
+	width: fit-content;
+	height: fit-content;
+	padding: 2px;
+	border-radius: 5px;
+}
+
+#signUp{
+	float: right;
+}
+#lastHere
+{
+	color: #eee;
+	border-color: #eee;
+	font-weight: 300;
+	background: linear-gradient(to top, transparent 70%, var(--main-color)  98%, transparent );
+}
+
+#errorMessage{
+	color: rgb(219, 115, 115);
+}
+
+#divider {
+	display: flex;
+}
+#leftSide {
+	flex: 1;
+}
+#rightSide {
+	flex: 2;
+}
+
+th,td, td > a{
+	color: white;
+	border-color: black;
+	border-top: none !important;
+}
+th{
+	border-left: none;
+	border-right: none;
+	font-size: 1.1em;
+	font-weight: 300;
+	padding-left:  4px;
+	padding-right: 4px;
+}
+table{
+	border: none !important;
+}
+
+.logout{
+	/* border: 2px solid black !important; */
+	border-radius: 3px;
+	margin-bottom: 20px;
+	padding: 3px;
+	color: silver;
+	background-color: var(--main-color);
+}

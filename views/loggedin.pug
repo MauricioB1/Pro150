@@ -1,0 +1,35 @@
+extends layout 
+
+block content 
+    h2 User can update/edit information and can log out.
+
+    form(id='form' method='post' action='/edit/' + person._id)
+        label(class='account' for='username') Name:
+            input(type='text' name='username' value=person.username)
+        br
+        label(class='account' for='password') Password: 
+            input(type='password' name='password')
+        br
+        label(class='account' for='email') Email: 
+            input(type='email' name='email' value=person.email)
+        br
+        label(class='account' for='age') Age: 
+            input(type='number' name='age' value=person.age)
+        br
+
+        label(for='questions') Multiple Choice Question: 
+        br
+        label(for='questions1') Favorite type of drink?
+        br
+        select(name='questions1')
+            option(selected=person.answers[0]) #{person.answers[0]}
+            option(value='JUICE') JUICE
+            option(value='SODA') SODA
+            option(value='ALCOHOL') ALCOHOL
+        br
+        input(type='submit' value='edit user')
+        br
+        a(href='/loggedout' class='logout' id='/loggedout') Log Out
+        br
+        if person.admin === true 
+            a(href='/user/' + person._id id='/user') (ADMIN ONLY) Edit Users

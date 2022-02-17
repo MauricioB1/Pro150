@@ -1,0 +1,31 @@
+extends layout 
+
+block content 
+    h2 Account Creation 
+
+    form(id='form' method='post' action='/crerate')
+    label(class='account' for='name') Name: 
+        input(type='text' name='name' required)
+    br
+    label(class='account' for='password') Password: 
+        input(type='password' name='password' required)
+    br
+    label(class='account' for='email') Email: 
+        input(type='email' name='email' required)
+    br
+    label(class='account' for='age') Age: 
+        input(type='number' name='age' required)
+    br
+
+    h3 Multiple Choice Question: 
+
+        label(for='questions') Favorite type of drink?
+        br
+        select(name='questions1')
+            option(value='JUICE') JUICE
+            option(value='SODA') SODA
+            option(value='ALCOHOL') ALCOHOL
+        br
+        br
+
+        input(type='submit' value='create user')
