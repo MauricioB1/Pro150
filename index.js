@@ -15,4 +15,6 @@ const urlencodedParser = express.urlencoded({
 
 app.get("/", routes.index);
 
+app.get("/test", routes.testpage);
+
 app.listen(3000);

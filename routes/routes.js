@@ -10,30 +10,21 @@ const collection = db.collection("User");
 
 //Returns the index page
 exports.index = async (req, res) => {
-
-    const items = people();
-    // await client.connect();
-    // const findResult = await collection.find({}).toArray();
-    // console.log("Users found: ", findResult);
-    // client.close();
-
     res.render("index", {
         title: "Website",
     });
-    
 };
 
+//This will be deleted later
+exports.testpage = async (req, res) => {
+    res.render("testpage", {
+        title: "TEST",
+        people: await getAllUsers(),
+    });
+}
+
 exports.signup = async (req, res) => {
-    await client.connect();
-    let user = {
-        Username: req.body.Username,
-        Password: req.body.Password,
-        PFP: req.body.PFP,
-        Bio: req.body.Bio,
-        Edit_History: req.body.Edit_History,
-    };
-    const insertResult = await collection.insertOne(user);
-    client.close();
+    await insertUser(req);
     res.redirect("/");
 }
 
@@ -68,13 +59,37 @@ exports.editUser = async (req, res) => {
 };
 
 exports.delete = async (req, res) => {
-    await client.connect();
-    const deleteResult = await collection.deleteOne({
-        _id: ObjectId(req.params.id),
-    });
-    client.close();
+    await deleteUser(req.params.id);
     res.redirect("/");
 }
 
+////////////////////////MongDB CRUD methods////////////////////////
 
+const getAllUsers = async() => {
+    await client.connect();
+    const findResult = await collection.find({}).toArray();
+    console.log("Users found: ", findResult);
+    client.close();
+    return findResult;
+}
 
+const insertUser = async(request) => {
+    await client.connect();
+    let user = {
+        Username: request.body.Username,
+        Password: request.body.Password,
+        PFP: request.body.PFP,
+        Bio: request.body.Bio,
+        Edit_History: request.body.Edit_History,
+    };
+    const insertResult = await collection.insertOne(user);
+    client.close();
+}
+
+const deleteUser = async(id) => {
+    await client.connect();
+    const deleteResult = await collection.deleteOne({
+        _id: ObjectId(id),
+    });
+    client.close();
+}

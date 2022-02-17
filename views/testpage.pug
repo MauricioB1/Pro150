@@ -1,0 +1,11 @@
+extends layout 
+
+block content 
+
+    each item in people
+
+        p #{item.Username}
+        p #{item.Bio}
+        p #{item.species}
+        p   
+            img(src=item.PFP width=250)
