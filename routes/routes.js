@@ -10,7 +10,7 @@ const collection = db.collection("User");
 
 //Returns the index page
 exports.index = async (req, res) => {
-    res.render("index", {
+    res.render("homepage", {
         title: "Website",
     });
 };
