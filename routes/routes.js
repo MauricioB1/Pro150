@@ -9,7 +9,7 @@ const collection = db.collection("User");
 ////////////////////////exports methods to be used in index.js////////////////////////
 
 //Returns the index page
-exports.index = async (req, res) => {
+exports.homepage = async (req, res) => {
     res.render("homepage", {
         title: "Website",
     });
@@ -24,8 +24,9 @@ exports.testpage = async (req, res) => {
 }
 
 exports.signup = async (req, res) => {
-    await insertUser(req);
-    res.redirect("/");
+    res.render("signup", {
+        title: "Sign Up",
+    });
 }
 
 exports.edit = async (req, res) => {
@@ -63,6 +64,13 @@ exports.delete = async (req, res) => {
     res.redirect("/");
 }
 
+exports.create = async (req, res) => {
+    
+    await insertUser(req.body);
+    console.log("It made it here...");
+    res.redirect("/");
+}
+
 ////////////////////////MongDB CRUD methods////////////////////////
 
 const getAllUsers = async() => {
@@ -76,11 +84,11 @@ const getAllUsers = async() => {
 const insertUser = async(request) => {
     await client.connect();
     let user = {
-        Username: request.body.Username,
-        Password: request.body.Password,
-        PFP: request.body.PFP,
-        Bio: request.body.Bio,
-        Edit_History: request.body.Edit_History,
+        Username: request.Username,
+        Password: request.Password,
+        PFP: request.PFP,
+        Bio: request.Bio,
+        Edit_History: "Nothing yet...",
     };
     const insertResult = await collection.insertOne(user);
     client.close();

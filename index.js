@@ -13,8 +13,12 @@ const urlencodedParser = express.urlencoded({
     extended: false,
 });
 
-app.get("/", routes.index);
+app.get("/", routes.homepage);
 
 app.get("/test", routes.testpage);
+
+app.get("/signup", routes.signup)
+
+app.post("/create", urlencodedParser, routes.create)
 
 app.listen(3000);
