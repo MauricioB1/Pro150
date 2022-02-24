@@ -204,3 +204,17 @@ table{
 	color: silver;
 	background-color: var(--main-color);
 }
+
+
+.menu_item {
+    display: inline-block;
+    border: 2px solid #96a0a4;
+    width: 100px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    background-color: #1e5f0f;
+    border-radius: 8px;
+    cursor: pointer;
+    user-select: none;
+}

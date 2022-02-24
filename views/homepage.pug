@@ -1,23 +1,8 @@
 extends layout 
 
 block content 
-    p HOME PAGE
+    h2 WELCOME TO COMIC WIKI!!! 
+    h3 Where you can find all your hopes and dreams crushed into fine dust!!
 
-    h3(id='lastHere')=visitedMessage
-    div(id='divider') 
-        div(id='leftSide') 
-            form(method='post' action='/loggedin') 
-                label(class='account' for='username') Username: 
-                    input(id='username' type='text' name='username' required placeholder='Username') 
-                br 
-                label(class='account' for='password') Password: 
-                    input(id='password' type='password' name='password' required) 
-                br 
-                div(id='horizontal') 
-                    input(type='submit' value='Log in') 
-                    a(href='/signup' id='signUp') Sign up
-            if (invalidMessage != '') 
-                p(id='errorMessage')=invalidMessage
-        div(id='rightSide') 
-            canvas(id='canvas') 
-    script(src='/script.js') 
+
+

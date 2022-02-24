@@ -6,14 +6,81 @@ const client = new MongoClient("mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb
 const db = client.db("PRO150");
 const collection = db.collection("User");
 
+const config = require('../config');
+
 ////////////////////////exports methods to be used in index.js////////////////////////
 
 //Returns the index page
 exports.homepage = async (req, res) => {
-    res.render("homepage", {
+    res.render("homepage", { /////////can check the different pages by changing this////////////
         title: "Website",
+        config: config
     });
 };
+
+exports.comicpage = (req, res) => {
+    res.render('comicpage', {
+        title: 'comic page',
+        config: config
+
+    });
+};
+
+exports.userpage = (req, res) => {
+    res.render('userpage', {
+        title: 'user page',
+        config: config
+    });
+};
+
+exports.editcomicpage = (req, res) => {
+    res.render('editcomicpage', {
+        title: 'edit comic page',
+        config: config
+
+    });
+};
+
+
+/////
+
+// exports.user = (req, res) => {
+//     res.render('user', {
+//         title: 'user',
+//         config: config
+//     });
+// };
+
+// exports.index = (req, res) => {
+//     res.render('index', {
+//         title: 'index',
+//         config: config
+//     });
+// };
+
+// exports.loggedin = (req, res) => {
+//     res.render('loggedin', {
+//         title: 'loggedin',
+//         config: config
+//     });
+// };
+
+// exports.signup = (req, res) => {
+//     res.render('signup', {
+//         title: 'signup',
+//         config: config
+//     });
+// };
+
+
+
+
+
+
+
+
+
+
 
 //This will be deleted later
 exports.testpage = async (req, res) => {

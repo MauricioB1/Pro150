@@ -1,0 +1,12 @@
+{
+    "menu": [
+        ["Home page", "/", ""],
+        ["Comic Page", "/comicpage", ""],
+        ["User Page", "/userpage", ""],
+        ["Edit Comic Page", "/editcomicpage", ""],
+        ["Index Page", "/index", ""]
+    ]
+
+    
+
+}
