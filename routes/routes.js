@@ -89,6 +89,7 @@ exports.testpage = async (req, res) => {
         title: "TEST",
         people: await getAllUsers(),
         heroes: await fetchAllHeroes(),
+        config: config
     });
 }
 
