@@ -1,5 +1,6 @@
 //MongoDB dependencies
 const { MongoClient, ObjectId } = require("mongodb");
+const axios = require('axios');
 
 //MongoDB connection variables
 const client = new MongoClient("mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
@@ -87,6 +88,7 @@ exports.testpage = async (req, res) => {
     res.render("testpage", {
         title: "TEST",
         people: await getAllUsers(),
+        heroes: await fetchAllHeroes(),
     });
 }
 
@@ -167,4 +169,21 @@ const deleteUser = async(id) => {
         _id: ObjectId(id),
     });
     client.close();
+}
+
+
+////////////////////////API methods////////////////////////
+
+let fetchAllHeroes = async() => {
+    
+    const res = await axios.get("https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json");
+
+    let data = JSON.stringify(res.data);
+
+    let json = JSON.parse(data);
+
+    console.log(json[0].name);
+
+    return json;
+
 }
