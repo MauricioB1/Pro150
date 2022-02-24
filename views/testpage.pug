@@ -2,6 +2,14 @@ extends layout
 
 block content 
 
+    h1 Heroes: 
+    each hero in heroes 
+        p #{hero.name}
+        p
+            img(src=hero.images.xs)
+        p
+
+    h1 Users
     each item in people
 
         p #{item.Username}
@@ -9,3 +17,5 @@ block content
         p #{item.species}
         p   
             img(src=item.PFP width=250)
+        p
+    
