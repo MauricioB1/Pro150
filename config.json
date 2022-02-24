@@ -5,8 +5,12 @@
         ["User Page", "/userpage", ""],
         ["Edit Comic Page", "/editcomicpage", ""],
         ["Index Page", "/index", ""]
-    ]
+    ],
 
-    
+    "sign": [
+        ["user", "/user", ""],
+        ["loggedin", "/loggedin", ""],
+        ["signup", "/signup", ""]
+    ]
 
 }

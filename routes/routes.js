@@ -44,33 +44,33 @@ exports.editcomicpage = (req, res) => {
 
 /////
 
-// exports.user = (req, res) => {
-//     res.render('user', {
-//         title: 'user',
-//         config: config
-//     });
-// };
+exports.user = (req, res) => {
+    res.render('user', {
+        title: 'user',
+        config: config
+    });
+};
 
-// exports.index = (req, res) => {
-//     res.render('index', {
-//         title: 'index',
-//         config: config
-//     });
-// };
+exports.index = (req, res) => {
+    res.render('index', {
+        title: 'index',
+        config: config
+    });
+};
 
-// exports.loggedin = (req, res) => {
-//     res.render('loggedin', {
-//         title: 'loggedin',
-//         config: config
-//     });
-// };
+exports.loggedin = (req, res) => {
+    res.render('loggedin', {
+        title: 'loggedin',
+        config: config
+    });
+};
 
-// exports.signup = (req, res) => {
-//     res.render('signup', {
-//         title: 'signup',
-//         config: config
-//     });
-// };
+exports.signup = (req, res) => {
+    res.render('signup', {
+        title: 'signup',
+        config: config
+    });
+};
 
 
 
@@ -90,11 +90,11 @@ exports.testpage = async (req, res) => {
     });
 }
 
-exports.signup = async (req, res) => {
-    res.render("signup", {
-        title: "Sign Up",
-    });
-}
+// exports.signup = async (req, res) => {
+//     res.render("signup", {
+//         title: "Sign Up",
+//     });
+//}
 
 exports.edit = async (req, res) => {
     await client.connect();

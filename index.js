@@ -18,9 +18,9 @@ app.get("/comicpage", routes.comicpage);
 app.get("/userpage", routes.userpage);
 app.get("/editcomicpage", routes.editcomicpage);
 
-//app.get("/user", routes.user);
-//app.get("/index", routes.index);
-//app.get("/laggedin", routes.loggedin);
+app.get("/user", routes.user);
+app.get("/index", routes.index);
+app.get("/loggedin", routes.loggedin);
 app.get("/signup", routes.signup)
 
 
