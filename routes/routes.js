@@ -13,9 +13,16 @@ const config = require('../config');
 
 //Returns the index page
 exports.homepage = async (req, res) => {
+
+
+    let heroes = [
+        await fetchHero("Spider-Man"), await fetchHero("Alfred Pennyworth"), await fetchHero("Moon Knight")
+    ];
+
     res.render("homepage", { /////////can check the different pages by changing this////////////
         title: "Website",
-        config: config
+        config: config,
+        heroes: heroes
     });
 };
 
@@ -72,15 +79,6 @@ exports.signup = (req, res) => {
         config: config
     });
 };
-
-
-
-
-
-
-
-
-
 
 
 //This will be deleted later
@@ -187,4 +185,19 @@ let fetchAllHeroes = async() => {
 
     return json;
 
+}
+
+let fetchHero = async(heroName) => {
+    const res = await axios.get("https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json");
+
+    let data = JSON.stringify(res.data);
+
+    let json = JSON.parse(data);
+
+    var filtered = json.filter(jsonObject => 
+        jsonObject.name.includes(heroName));
+
+    //console.log(filtered);
+
+    return filtered[0];
 }

@@ -3,7 +3,17 @@ extends layout
 
 block content 
     h2 WELCOME TO COMIC WIKI!!! 
-    h3 Where you can find all your hopes and dreams crushed into fine dust!!
+
+
+
+    h2 Popular Articles:    
+    each hero in heroes 
+        a(id='form' href="/comicpage")
+            p #{hero.name}
+            p
+                img(src=hero.images.sm)
+            p
+
 
 
 
