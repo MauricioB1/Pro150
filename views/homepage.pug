@@ -7,12 +7,14 @@ block content
 
 
     h2 Popular Articles:    
-    each hero in heroes 
-        a(id='form' href="/comicpage")
-            p #{hero.name}
-            p
-                img(src=hero.images.sm)
-            p
+    each hero in heroes    
+            form(id='form' action="/comicpage/" + hero.name method='get')
+                p 
+                    input(type="text" disabled name="heroName" value=hero.name)
+                p
+                    input(type='image' src=hero.images.sm)
+                p
+
 
 
 

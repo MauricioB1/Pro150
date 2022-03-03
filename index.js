@@ -14,22 +14,21 @@ const urlencodedParser = express.urlencoded({
 });
 
 app.get("/", routes.homepage);
-app.get("/comicpage", routes.comicpage);
+
 app.get("/userpage", routes.userpage);
 app.get("/editcomicpage", routes.editcomicpage);
 
 app.get("/user", routes.user);
 app.get("/index", routes.index);
 app.get("/loggedin", routes.loggedin);
-app.get("/signup", routes.signup)
-
-
-
+app.get("/signup", routes.signup);
 
 app.get("/test", routes.testpage);
 
 //app.get("/signup", routes.signup)
 
-app.post("/create", urlencodedParser, routes.create)
+app.get("/comicpage/:heroName", urlencodedParser, routes.comicpage);
+
+app.post("/create", urlencodedParser, routes.create);
 
 app.listen(3000);

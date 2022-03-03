@@ -26,10 +26,14 @@ exports.homepage = async (req, res) => {
     });
 };
 
-exports.comicpage = (req, res) => {
+exports.comicpage = async (req, res) => {
+
+    console.log(req.params.heroName)
+
     res.render('comicpage', {
         title: 'comic page',
-        config: config
+        config: config,
+        hero: await fetchHero(req.params.heroName),
 
     });
 };
@@ -195,7 +199,7 @@ let fetchHero = async(heroName) => {
     let json = JSON.parse(data);
 
     var filtered = json.filter(jsonObject => 
-        jsonObject.name.includes(heroName));
+        jsonObject.name == heroName);
 
     //console.log(filtered);
 

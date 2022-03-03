@@ -2,4 +2,9 @@ extends layout
 
 
 block content 
-    h2 This is comics page
+    p 
+        img(src=hero.images.md)
+    h2 #{hero.name}
+    h2 Full name: #{hero.biography.fullName}
+    h2 Place of birth: #{hero.biography.placeOfBirth}
+    h2 Original Comic Publisher: #{hero.biography.publisher}
