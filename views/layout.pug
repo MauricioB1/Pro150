@@ -27,6 +27,11 @@ html
                     //-         div(class='menu_item')
                     //-             li(id=item[0]) #{item[0]}
 
+        form(id='form' action="/results" method='post')
+                p 
+                    input(type="text" name="searchText") 
+                    input(type='submit' name="searchBut" value="Search")
+                
 block content
         //- h1 #{title}
         //- section

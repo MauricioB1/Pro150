@@ -31,4 +31,6 @@ app.get("/comicpage/:heroName", urlencodedParser, routes.comicpage);
 
 app.post("/create", urlencodedParser, routes.create);
 
+app.post("/results", urlencodedParser, routes.search);
+
 app.listen(3000);

@@ -16,7 +16,7 @@ exports.homepage = async (req, res) => {
 
 
     let heroes = [
-        await fetchHero("Spider-Man"), await fetchHero("Alfred Pennyworth"), await fetchHero("Moon Knight")
+        await fetchHero("620-spider-man"), await fetchHero("17-alfred-pennyworth"), await fetchHero("470-moon-knight")
     ];
 
     res.render("homepage", { /////////can check the different pages by changing this////////////
@@ -143,6 +143,26 @@ exports.create = async (req, res) => {
     res.redirect("/");
 }
 
+exports.search = async (req,res) => {
+    const response = await axios.get("https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json");
+
+    let data = JSON.stringify(response.data);
+
+    let json = JSON.parse(data);
+
+    var filtered = json.filter(jsonObject => 
+        jsonObject.name.toLowerCase().includes(req.body.searchText));
+
+    console.log(filtered);
+
+    res.render("results", {
+        title: "Results: ",
+        config: config,
+        results: filtered, 
+    });
+
+}
+
 ////////////////////////MongDB CRUD methods////////////////////////
 
 const getAllUsers = async() => {
@@ -199,7 +219,7 @@ let fetchHero = async(heroName) => {
     let json = JSON.parse(data);
 
     var filtered = json.filter(jsonObject => 
-        jsonObject.name.toLowerCase() === heroName.toLowerCase());
+        jsonObject.slug.includes(heroName));
 
     return filtered[0];
 }

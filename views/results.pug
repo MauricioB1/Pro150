@@ -1,0 +1,8 @@
+extends layout
+
+block content  
+
+    each result in results
+        form(id='form' action="/comicpage/" + result.slug method='get')
+            p #{result.name}
+            input(type='image' src=result.images.sm)

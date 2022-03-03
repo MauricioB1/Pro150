@@ -8,9 +8,13 @@ block content
 
     h2 Popular Articles:    
     each hero in heroes    
-            form(id='form' action="/comicpage/" + hero.name method='get')
+            form(id='form' action="/comicpage/" + hero.slug method='get')
                 p 
                     input(type="text" disabled name="heroName" value=hero.name)
+
+                p
+                    input(type="text" disabled hidden name="heroSlug" value=hero.slug)
+
                 p
                     input(type='image' src=hero.images.sm)
                 p
