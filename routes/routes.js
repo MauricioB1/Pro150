@@ -199,9 +199,7 @@ let fetchHero = async(heroName) => {
     let json = JSON.parse(data);
 
     var filtered = json.filter(jsonObject => 
-        jsonObject.name == heroName);
-
-    //console.log(filtered);
+        jsonObject.name.toLowerCase() === heroName.toLowerCase());
 
     return filtered[0];
 }
