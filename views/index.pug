@@ -3,10 +3,10 @@ extends layout
 block content 
     h2 This is login page
 
-    h3(id='lastHere')=visitedMessage
+    //h3(id='lastHere')=visitedMessage
     div(id='divider') 
         div(id='leftSide') 
-            form(method='post' action='/loggedin') 
+            form(method='post' action='/loggedin' style="float: center;") 
                 label(class='account' for='username') Username: 
                     input(id='username' type='text' name='username' required placeholder='Username') 
                 br 
@@ -19,5 +19,6 @@ block content
             if (invalidMessage != '') 
                 p(id='errorMessage')=invalidMessage
         div(id='rightSide') 
-            canvas(id='canvas') 
+            //- canvas(id='canvas') 
     script(src='/script.js') 
+

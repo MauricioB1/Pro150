@@ -183,6 +183,7 @@ th,td, td > a{
 	color: white;
 	border-color: black;
 	border-top: none !important;
+	padding: 10px;
 }
 th{
 	border-left: none;
@@ -252,4 +253,14 @@ li #stuff {
 	vertical-align: middle;
 	margin: 0px;
 	padding: 0px;
+}
+
+#form {
+	display: inline-block;
+    
+    margin: 10px;
+    padding: 10px;
+    
+    cursor: pointer;
+    user-select: none;
 }
