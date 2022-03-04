@@ -2,7 +2,6 @@
     "menu": [
         ["Home page", "/", ""],
         ["User Page", "/userpage", ""],
-        ["Edit Comic Page", "/editcomicpage", ""],
         ["Login/Signup Page", "/index", ""]
     ],
 
