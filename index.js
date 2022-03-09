@@ -1,13 +1,28 @@
 const express = require("express"),
     pug = require("pug"),
     path = require("path"),
-    routes = require("./routes/routes.js");
+    routes = require("./routes/routes.js"),
+    expressSession = require("express-session");
 
 const app = express();
 
 app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 app.use(express.static(path.join(__dirname, "/public")));
+
+app.use(expressSession({
+    secret: 'wh4t3v3r',
+    saveUninitialized: true,
+    resave: true
+}));
+
+const checkAuth = (req, res, next) => {
+    if(req.session.user && req.session.user.isAuthenticated) {
+        next();
+    } else {
+        res.redirect('/');
+    }
+};
 
 const urlencodedParser = express.urlencoded({
     extended: false,
@@ -16,17 +31,25 @@ const urlencodedParser = express.urlencoded({
 app.get("/", routes.homepage);
 
 app.get("/userpage", routes.userpage);
-app.get("/editcomicpage/:heroName", routes.editcomicpage);
+app.get("/editcomicpage/:heroName", checkAuth, routes.editcomicpage);
 app.post("/edit/:id",urlencodedParser, routes.editUser)
 app.get("/user", routes.user);
 app.get("/index", routes.index);
 //app.get("/loggedin", routes.loggedin);
 app.get("/signup", routes.signup);
-app.get("/login",routes.login);
+app.get("/login", checkAuth, routes.login);
 app.post("/login",urlencodedParser, routes.login);
 app.get("/signup", routes.signup)
 
-
+app.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect('/');
+        }
+    });
+});
 
 app.get("/test", routes.testpage);
 

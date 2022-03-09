@@ -24,6 +24,8 @@ exports.homepage = async (req, res) => {
 
     res.render("homepage", { /////////can check the different pages by changing this////////////
         title: "Website",
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         config: config,
         heroes: heroes
     });
@@ -59,11 +61,26 @@ exports.comicpage = async (req, res) => {
     
 };
 
-exports.userpage = (req, res) => {
-    res.render('userpage', {
-        title: 'user page',
-        config: config,
-    });
+exports.userpage = async (req, res) => {
+    await client.connect();
+    const findUser = await collection.findOne({_id: ObjectId(req.session.user.id)});
+    //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
+    ////if(testPassword){
+    //console.log(findUser);
+    console.log(req.session.user)
+    
+    if (req.session.user.id){
+
+        res.render("login",{
+            user: findUser,
+            config:config
+        })
+        client.close()
+    }
+    else {
+        res.redirect("/");
+    }
+
 };
 
 exports.editcomicpage = async (req, res) => {
@@ -177,16 +194,25 @@ exports.login = async (req, res) =>{
     const findUser = await collection.findOne({Username : req.body.username, Password : req.body.password});
     //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
     ////if(testPassword){
-
-    console.log(req.body.Username);
-
     console.log(findUser);
     
+    if (findUser != null){
+        req.session.user = {
+            isAuthenticated: true,
+            username: req.body.username,
+            id: findUser._id
+        }
         res.render("login",{
             user: findUser,
             config:config
         })
         client.close()
+    }
+    else {
+        res.redirect("/");
+    }
+
+        
 }
 
 exports.edit = async (req, res) => {
