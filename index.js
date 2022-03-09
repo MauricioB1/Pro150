@@ -16,7 +16,7 @@ const urlencodedParser = express.urlencoded({
 app.get("/", routes.homepage);
 
 app.get("/userpage", routes.userpage);
-app.get("/editcomicpage", routes.editcomicpage);
+app.get("/editcomicpage/:heroName", routes.editcomicpage);
 
 app.get("/user", routes.user);
 app.get("/index", routes.index);
@@ -24,6 +24,8 @@ app.get("/loggedin", routes.loggedin);
 app.get("/signup", routes.signup);
 
 app.get("/test", routes.testpage);
+
+app.post("/changeComic/:heroName", urlencodedParser, routes.changeComic)
 
 //app.get("/signup", routes.signup)
 

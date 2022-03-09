@@ -1,4 +1,22 @@
 extends layout 
 
 block content 
-    h2 This is edit comic page
+    h2 This is edit comic 
+    p 
+        img(src=hero.images.md)
+
+    form(id='form' action="/changeComic/" + hero.slug method='post')
+        input(type='text' name="mdImage" hidden value=hero.images.md)
+        label(for='heroName') Name: 
+        input(type="text" name="heroName" value=hero.name)
+        p
+        label(for='heroFName') Full real name (ex: Peter Parker): 
+        input(type="text" name="heroFName" value=hero.biography.fullName)
+        p
+        label(for='POB') Place of birth: 
+        input(type="text" name="POB" value=hero.biography.placeOfBirth)
+        p
+        label(for='name') Publisher (ex: DC comics): 
+        input(type="text" name="pub" value=hero.biography.publisher)
+        p
+        input(type="submit" name="submitChange" value="Save changess")

@@ -246,6 +246,7 @@ ul {
 	background: var(--main-gradient);
 	background-size: 400% 400%;
 	animation: gradient 40s ease infinite;
+	color: black;
 }
 
 #title_head {

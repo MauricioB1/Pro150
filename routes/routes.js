@@ -6,8 +6,10 @@ const axios = require('axios');
 const client = new MongoClient("mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
 const db = client.db("PRO150");
 const collection = db.collection("User");
+const comicCollection = db.collection("Comics");
 
 const config = require('../config');
+const { redirect, render } = require("express/lib/response");
 
 ////////////////////////exports methods to be used in index.js////////////////////////
 
@@ -28,31 +30,99 @@ exports.homepage = async (req, res) => {
 
 exports.comicpage = async (req, res) => {
 
-    console.log(req.params.heroName)
+    await client.connect();
+    const findResult = await comicCollection.findOne({slug: req.params.heroName});
+    console.log("Comic found: ", findResult);
+    client.close();
 
-    res.render('comicpage', {
-        title: 'comic page',
-        config: config,
-        hero: await fetchHero(req.params.heroName),
+    if (findResult === null){
+        console.log("Creating comic");
+        res.render('comicpage', {
+            title: 'comic page',
+            config: config,
+            hero: await fetchHero(req.params.heroName),
+    
+        });
+    }
+    else {
+        console.log("Finding comic")
+        res.render('comicpage', {
+            title: 'comic page',
+            config: config,
+            hero: findResult,
+    
+        });
+    }
 
-    });
+
+    
 };
 
 exports.userpage = (req, res) => {
     res.render('userpage', {
         title: 'user page',
-        config: config
+        config: config,
     });
 };
 
-exports.editcomicpage = (req, res) => {
-    res.render('editcomicpage', {
-        title: 'edit comic page',
-        config: config
+exports.editcomicpage = async (req, res) => {
 
-    });
+    await client.connect();
+    const findResult = await comicCollection.findOne({slug: req.params.heroName});
+
+    console.log(req.params.heroName);
+
+    console.log("Comic found: ", findResult);
+    client.close();
+
+    if (findResult === null){
+        console.log("Creating comic");
+        res.render('editcomicpage', {
+            title: 'edit comic page',
+            config: config,
+            hero: await fetchHero(req.params.heroName),
+    
+        });
+    }
+    else {
+        console.log("Finding comic")
+        res.render('editcomicpage', {
+            title: 'edit comic page',
+            config: config,
+            hero: findResult,
+    
+        });
+    }
 };
 
+exports.changeComic = async(req, res) => {
+
+    let hero = await fetchHero(req.params.heroName);
+
+    await client.connect();
+    const updateResult = await comicCollection.updateOne(
+        {slug: req.params.heroName},
+        {
+            $set: {
+                name: req.body.heroName,
+                biography: {
+                    fullName: req.body.heroFName,
+                    placeOfBirth: req.body.POB,
+                    publisher: req.body.pub
+                },
+                images: {
+                    md: req.body.mdImage
+                }
+                
+            }
+        },
+        {upsert: true}
+    );
+    console.log(" found: ", updateResult);
+    client.close();
+
+    res.redirect('/comicpage/' + hero.slug);
+}
 
 /////
 
