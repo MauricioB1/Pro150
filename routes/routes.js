@@ -1,199 +1,191 @@
 //MongoDB dependencies
 const { MongoClient, ObjectId } = require("mongodb");
-const axios = require('axios');
+const axios = require("axios");
 const bcrypt = require("bcryptjs");
 
 //MongoDB connection variables
-const client = new MongoClient("mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
+const client = new MongoClient(
+    "mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+);
 const db = client.db("PRO150");
 const collection = db.collection("User");
 const comicCollection = db.collection("Comics");
 
-const config = require('../config');
+const config = require("../config");
 const { redirect, render } = require("express/lib/response");
 
 ////////////////////////exports methods to be used in index.js////////////////////////
 
 //Returns the index page
 exports.homepage = async (req, res) => {
-
-
     let heroes = [
-        await fetchHero("620-spider-man"), await fetchHero("17-alfred-pennyworth"), await fetchHero("470-moon-knight")
+        await fetchHero("620-spider-man"),
+        await fetchHero("17-alfred-pennyworth"),
+        await fetchHero("470-moon-knight"),
     ];
 
-    res.render("homepage", { /////////can check the different pages by changing this////////////
+    res.render("homepage", {
+        /////////can check the different pages by changing this////////////
         title: "Website",
         user_name: config.user[0][1],
         pfp: config.user[1][1],
         config: config,
-        heroes: heroes
+        heroes: heroes,
     });
 };
 
 exports.comicpage = async (req, res) => {
-
     await client.connect();
-    const findResult = await comicCollection.findOne({slug: req.params.heroName});
+    const findResult = await comicCollection.findOne({
+        slug: req.params.heroName,
+    });
     //console.log("Comic found: ", findResult);
     client.close();
 
     console.log(findResult);
 
-    if (findResult === null){
+    if (findResult === null) {
         console.log("Creating comic");
-        console.log(await fetchHero(req.params.heroName))
-        res.render('comicpage', {
-            title: 'comic page',
+        console.log(await fetchHero(req.params.heroName));
+        res.render("comicpage", {
+            title: "comic page",
             user_name: config.user[0][1],
             pfp: config.user[1][1],
             config: config,
             hero: await fetchHero(req.params.heroName),
-    
         });
-    }
-    else {
-        console.log("Finding comic")
-        res.render('comicpage', {
-            title: 'comic page',
+    } else {
+        console.log("Finding comic");
+        res.render("comicpage", {
+            title: "comic page",
             user_name: config.user[0][1],
             pfp: config.user[1][1],
             config: config,
             hero: findResult,
-    
         });
     }
-    
 };
 
 exports.userpage = async (req, res) => {
     await client.connect();
-    const findUser = await collection.findOne({_id: ObjectId(req.session.user.id)});
+    const findUser = await collection.findOne({
+        _id: ObjectId(req.session.user.id),
+    });
     //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
     ////if(testPassword){
     //console.log(findUser);
-    console.log(req.session.user)
-    
-    if (req.session.user.id){
+    console.log("session id: ",req.session.user.id);
 
-        res.render("login",{
+    if (req.session.user.id) {
+        res.render("login", {
             user: findUser,
             user_name: config.user[0][1],
             pfp: config.user[1][1],
-            config:config
-        })
+            config: config,
+        });
 
-
-
-        client.close()
-    }
-    else {
+        client.close();
+    } else {
         res.redirect("/");
     }
-
 };
 
 exports.editcomicpage = async (req, res) => {
-
     await client.connect();
-    const findResult = await comicCollection.findOne({slug: req.params.heroName});
+    const findResult = await comicCollection.findOne({
+        slug: req.params.heroName,
+    });
 
     console.log(req.params.heroName);
 
     console.log("Comic found: ", findResult);
     client.close();
 
-    if (findResult === null){
+    if (findResult === null) {
         console.log("Creating comic");
-        res.render('editcomicpage', {
-            title: 'edit comic page',
+        res.render("editcomicpage", {
+            title: "edit comic page",
             user_name: config.user[0][1],
             pfp: config.user[1][1],
             config: config,
             hero: await fetchHero(req.params.heroName),
-    
         });
-    }
-    else {
-        console.log("Finding comic")
-        res.render('editcomicpage', {
-            title: 'edit comic page',
+    } else {
+        console.log("Finding comic");
+        res.render("editcomicpage", {
+            title: "edit comic page",
             user_name: config.user[0][1],
             pfp: config.user[1][1],
             config: config,
             hero: findResult,
-    
         });
     }
 };
 
-exports.changeComic = async(req, res) => {
-
+exports.changeComic = async (req, res) => {
     let hero = await fetchHero(req.params.heroName);
 
     await client.connect();
     const updateResult = await comicCollection.updateOne(
-        {slug: req.params.heroName},
+        { slug: req.params.heroName },
         {
             $set: {
                 name: req.body.heroName,
                 biography: {
                     fullName: req.body.heroFName,
                     placeOfBirth: req.body.POB,
-                    publisher: req.body.pub
+                    publisher: req.body.pub,
                 },
                 images: {
-                    md: req.body.mdImage
-                }
-                
-            }
+                    md: req.body.mdImage,
+                },
+            },
         },
-        {upsert: true}
+        { upsert: true }
     );
     console.log(" found: ", updateResult);
     client.close();
 
-    res.redirect('/comicpage/' + hero.slug);
-}
+    res.redirect("/comicpage/" + hero.slug);
+};
 
 /////
 
 exports.user = (req, res) => {
-    res.render('user', {
-        title: 'user',
+    res.render("user", {
+        title: "user",
         user_name: config.user[0][1],
         pfp: config.user[1][1],
-        config: config
+        config: config,
     });
 };
 
 exports.index = (req, res) => {
-    res.render('index', {
-        title: 'index',
+    res.render("index", {
+        title: "index",
         user_name: config.user[0][1],
         pfp: config.user[1][1],
-        config: config
+        config: config,
     });
 };
 
 exports.loggedin = (req, res) => {
-    res.render('loggedin', {
-        title: 'loggedin',
+    res.render("loggedin", {
+        title: "loggedin",
         user_name: config.user[0][1],
         pfp: config.user[1][1],
-        config: config
+        config: config,
     });
 };
 
 exports.signup = (req, res) => {
-    res.render('signup', {
-        title: 'signup',
+    res.render("signup", {
+        title: "signup",
         user_name: config.user[0][1],
         pfp: config.user[1][1],
-        config: config
+        config: config,
     });
 };
-
 
 //This will be deleted later
 exports.testpage = async (req, res) => {
@@ -203,9 +195,9 @@ exports.testpage = async (req, res) => {
         pfp: config.user[1][1],
         people: await getAllUsers(),
         heroes: await fetchAllHeroes(),
-        config: config
+        config: config,
     });
-}
+};
 
 // exports.signup = async (req, res) => {
 //     res.render("signup", {
@@ -213,38 +205,37 @@ exports.testpage = async (req, res) => {
 //     });
 //}
 
-exports.login = async (req, res) =>{
+exports.login = async (req, res) => {
     await client.connect();
-    const findUser = await collection.findOne({Username : req.body.username, Password : req.body.password});
+    const findUser = await collection.findOne({
+        Username: req.body.username,
+        Password: req.body.password,
+    });
     //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
     ////if(testPassword){
     console.log(findUser);
-    
-    if (findUser != null){
+
+    if (findUser != null) {
         req.session.user = {
             isAuthenticated: true,
             username: req.body.username,
-            id: findUser._id
-        }
+            id: findUser._id,
+        };
 
         config.user[0][1] = req.body.username;
         config.user[1][1] = findUser.PFP;
 
-
-        res.render("login",{
+        res.render("login", {
             user: findUser,
             user_name: config.user[0][1],
             pfp: config.user[1][1],
-            config:config
-        })
-        client.close()
-    }
-    else {
+            config: config,
+        });
+        client.close();
+    } else {
         res.redirect("/");
     }
-
-        
-}
+};
 
 exports.edit = async (req, res) => {
     await client.connect();
@@ -256,7 +247,7 @@ exports.edit = async (req, res) => {
         title: "Edit account",
         user_name: config.user[0][1],
         pfp: config.user[1][1],
-        user: filteredDocs[0], 
+        user: filteredDocs[0],
     });
 };
 
@@ -293,24 +284,50 @@ exports.editUser = async (req, res) => {
 exports.delete = async (req, res) => {
     await deleteUser(req.params.id);
     res.redirect("/");
-}
+};
 
 exports.create = async (req, res) => {
-    
-    await insertUser(req.body);
-    console.log("It made it here...");
-    res.redirect("/");
-}
+    const newUser = await insertUser(req.body);
 
-exports.search = async (req,res) => {
-    const response = await axios.get("https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json");
+    console.log(newUser._id);
+    req.session.user = {
+        isAuthenticated: true,
+        username: newUser.Username,
+        id: newUser._id,
+    };
+
+    config.user[0][1] = newUser.Username;
+    config.user[1][1] = newUser.PFP;
+
+    // let heroes = [
+    //     await fetchHero("620-spider-man"),
+    //     await fetchHero("17-alfred-pennyworth"),
+    //     await fetchHero("470-moon-knight"),
+    // ];
+
+    // res.render("homepage", {
+    //     /////////can check the different pages by changing this////////////
+    //     title: "Website",
+    //     user_name: config.user[0][1],
+    //     pfp: config.user[1][1],
+    //     config: config,
+    //     heroes: heroes,
+    // });
+    res.redirect("/userpage");
+};
+
+exports.search = async (req, res) => {
+    const response = await axios.get(
+        "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json"
+    );
 
     let data = JSON.stringify(response.data);
 
     let json = JSON.parse(data);
 
-    var filtered = json.filter(jsonObject => 
-        jsonObject.name.toLowerCase().includes(req.body.searchText));
+    var filtered = json.filter((jsonObject) =>
+        jsonObject.name.toLowerCase().includes(req.body.searchText)
+    );
 
     console.log(filtered);
 
@@ -319,22 +336,21 @@ exports.search = async (req,res) => {
         user_name: config.user[0][1],
         pfp: config.user[1][1],
         config: config,
-        results: filtered, 
+        results: filtered,
     });
-
-}
+};
 
 ////////////////////////MongDB CRUD methods////////////////////////
 
-const getAllUsers = async() => {
+const getAllUsers = async () => {
     await client.connect();
     const findResult = await collection.find({}).toArray();
     console.log("Users found: ", findResult);
     client.close();
     return findResult;
-}
+};
 
-const insertUser = async(request) => {
+const insertUser = async (request) => {
     await client.connect();
     let user = {
         Username: request.Username,
@@ -344,23 +360,30 @@ const insertUser = async(request) => {
         Edit_History: "Nothing yet...",
     };
     const insertResult = await collection.insertOne(user);
-    client.close();
-}
 
-const deleteUser = async(id) => {
+    const findUser = await collection.findOne({
+        Username: request.Username,
+        Password: request.Password,
+    });
+
+    client.close();
+    return findUser;
+};
+
+const deleteUser = async (id) => {
     await client.connect();
     const deleteResult = await collection.deleteOne({
         _id: ObjectId(id),
     });
     client.close();
-}
-
+};
 
 ////////////////////////API methods////////////////////////
 
-let fetchAllHeroes = async() => {
-    
-    const res = await axios.get("https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json");
+let fetchAllHeroes = async () => {
+    const res = await axios.get(
+        "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json"
+    );
 
     let data = JSON.stringify(res.data);
 
@@ -369,18 +392,20 @@ let fetchAllHeroes = async() => {
     console.log(json[0].name);
 
     return json;
+};
 
-}
-
-let fetchHero = async(heroName) => {
-    const res = await axios.get("https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json");
+let fetchHero = async (heroName) => {
+    const res = await axios.get(
+        "https://cdn.jsdelivr.net/gh/akabab/superhero-api@0.3.0/api/all.json"
+    );
 
     let data = JSON.stringify(res.data);
 
     let json = JSON.parse(data);
 
-    var filtered = json.filter(jsonObject => 
-        jsonObject.slug.includes(heroName));
+    var filtered = json.filter((jsonObject) =>
+        jsonObject.slug.includes(heroName)
+    );
 
     return filtered[0];
-}
+};
