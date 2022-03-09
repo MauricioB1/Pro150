@@ -174,14 +174,16 @@ exports.testpage = async (req, res) => {
 
 exports.login = async (req, res) =>{
     await client.connect();
-    const findUser = await (await collection.findOne({"username" : req.body.Username, "password" : req.body.Password}));
+    const findUser = await collection.findOne({Username : req.body.username, Password : req.body.password});
     //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
-    
-    const findResult = await collection.find(findUser).toArray();
     ////if(testPassword){
+
+    console.log(req.body.Username);
+
+    console.log(findUser);
     
         res.render("login",{
-            user: findResult,
+            user: findUser,
             config:config
         })
         client.close()

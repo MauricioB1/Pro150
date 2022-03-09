@@ -2,12 +2,20 @@ extends layout
 
 block content 
 
-    h1 User Information
-        each item in user
-            p #{item.Username}
-            p #{item.Password}
-            p #{item.PFP}
-            p #{item.Bio}
-            p #{item.Edit_History}
-                img(src=item.PFP width=250)
-            p
+    h1 User Information:
+
+    form(id='form' method:'post' actoin="/edit/" + user._id)
+        img(src=user.PFP width=250)
+        br
+        label(class='account' for='username') Name: 
+        input(type='text' name='username' value=user.Username)
+        br
+        label(class='account' for='password') Password: 
+            input(type='password' name='password')
+        br
+        label(class='account' for='bio') Bio: 
+            input(type='text' name='bio' value=user.Bio)
+        br   
+        label(class='account' for='edit_history') Edit History: 
+        input(type='text' disabled name='edit_history' value=user.Edit_History)
+        br
