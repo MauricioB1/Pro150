@@ -1,0 +1,13 @@
+extends layout 
+
+block content 
+
+    h1 User Information
+        each item in user
+            p #{item.Username}
+            p #{item.Password}
+            p #{item.PFP}
+            p #{item.Bio}
+            p #{item.Edit_History}
+                img(src=item.PFP width=250)
+            p

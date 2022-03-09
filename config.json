@@ -2,12 +2,14 @@
     "menu": [
         ["Home page", "/", ""],
         ["User Page", "/userpage", ""],
-        ["Login/Signup Page", "/index", ""]
+        ["Edit Comic Page", "/editcomicpage", ""],
+        ["Login/SignUp Page", "/index", ""]
+
     ],
 
     "sign": [
         ["user", "/user", ""],
-        ["loggedin", "/loggedin", ""],
+        ["login", "/login", ""],
         ["signup", "/signup", ""]
     ]
 

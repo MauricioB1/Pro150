@@ -1,6 +1,7 @@
 //MongoDB dependencies
 const { MongoClient, ObjectId } = require("mongodb");
 const axios = require('axios');
+const bcrypt = require("bcryptjs");
 
 //MongoDB connection variables
 const client = new MongoClient("mongodb+srv://PRO150:pass@cluster0.k7uok.mongodb.net/myFirstDatabase?retryWrites=true&w=majority");
@@ -170,6 +171,21 @@ exports.testpage = async (req, res) => {
 //         title: "Sign Up",
 //     });
 //}
+
+exports.login = async (req, res) =>{
+    await client.connect();
+    const findUser = await (await collection.findOne({"username" : req.body.Username, "password" : req.body.Password}));
+    //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
+    
+    const findResult = await collection.find(findUser).toArray();
+    ////if(testPassword){
+    
+        res.render("login",{
+            user: findResult,
+            config:config
+        })
+        client.close()
+}
 
 exports.edit = async (req, res) => {
     await client.connect();

@@ -20,8 +20,13 @@ app.get("/editcomicpage/:heroName", routes.editcomicpage);
 
 app.get("/user", routes.user);
 app.get("/index", routes.index);
-app.get("/loggedin", routes.loggedin);
+//app.get("/loggedin", routes.loggedin);
 app.get("/signup", routes.signup);
+app.get("/login",routes.login);
+app.post("/login",urlencodedParser, routes.login);
+app.get("/signup", routes.signup)
+
+
 
 app.get("/test", routes.testpage);
 
