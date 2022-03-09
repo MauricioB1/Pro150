@@ -3,11 +3,12 @@ const express = require("express"),
     path = require("path"),
     routes = require("./routes/routes.js"),
     expressSession = require("express-session");
-    config = require('./config');
+    config = require('./config'),
+    favicon = require('serve-favicon');
 
 
 const app = express();
-
+app.use(favicon(__dirname + '/public/favicon.ico'));
 app.set("view engine", "pug");
 app.set("views", __dirname + "/views");
 app.use(express.static(path.join(__dirname, "/public")));
@@ -41,7 +42,8 @@ app.get("/index", routes.index);
 app.get("/signup", routes.signup);
 app.get("/login", checkAuth, routes.login);
 app.post("/login",urlencodedParser, routes.login);
-app.get("/signup", routes.signup)
+app.get("/signup", routes.signup);
+
 
 app.get('/logout', (req, res) => {
     req.session.destroy(err => {
@@ -49,7 +51,7 @@ app.get('/logout', (req, res) => {
             console.log(err);
         } else {
             config.user[0][1] = "Guest";
-            config.user[1][1] = "tempPFP.png";
+            config.user[1][1] = "/tempPFP.png";
             res.redirect('/');
         }
     });

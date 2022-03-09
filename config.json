@@ -13,8 +13,8 @@
     ],
 
     "user": [
-        ["user_name","guest"],
-        ["pfp", "tempPFP.png"]
+        ["user_name","Guest"],
+        ["pfp", "/tempPFP.png"]
     ]
 
 }

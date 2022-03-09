@@ -35,11 +35,14 @@ exports.comicpage = async (req, res) => {
 
     await client.connect();
     const findResult = await comicCollection.findOne({slug: req.params.heroName});
-    console.log("Comic found: ", findResult);
+    //console.log("Comic found: ", findResult);
     client.close();
+
+    console.log(findResult);
 
     if (findResult === null){
         console.log("Creating comic");
+        console.log(await fetchHero(req.params.heroName))
         res.render('comicpage', {
             title: 'comic page',
             user_name: config.user[0][1],
@@ -60,8 +63,6 @@ exports.comicpage = async (req, res) => {
     
         });
     }
-
-
     
 };
 
