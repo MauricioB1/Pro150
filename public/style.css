@@ -284,3 +284,8 @@ li #stuff {
 #hName {
 	text-align: center;
 }
+
+#edit_comic {
+	list-style: none;
+	-webkit-padding-start: 0px;
+}

@@ -1,25 +1,29 @@
 extends layout 
 
 block content 
+    h2 User Information:
 
-    h1 User Information:
-
-    form(id='form' method='post' action="/edit/" + user._id)
-        img(src=user.PFP width=250)
-        br
-        label(class='account' for='username') Name: 
-        input(type='text' name='username' value=user.Username)
-        br
-        label(class='account' for='password') Password: 
-            input(type='password' name='password')
-        br
-        label(class='account' for='bio') Bio: 
-            input(type='text' name='bio' value=user.Bio)
-        br   
-        label(class='account' for='edit_history') Edit History: 
-        input(type='text' disabled name='edit_history' value=user.Edit_History)
-        br
-        input(type='submit' value='edit user')
-        br
-        a(href='/loggedout' class='logout' id='/loggedout') Log Out
-        br
+    ul(class="edit_comic")
+            div(id='divider')
+                div(id='leftSidetop')
+                div(id='centerSidetop')
+                    form(id='form' method='post' action="/edit/" + user._id)
+                        img(src=user.PFP width=250)
+                        br
+                        label(class='account' for='username') Name: 
+                            input(type='text' name='username' value=user.Username)
+                        br
+                        label(class='account' for='password') Password: 
+                            input(type='password' name='password')
+                        br
+                        label(class='account' for='bio') Bio: 
+                            input(type='text' name='bio' value=user.Bio)
+                        br   
+                        label(class='account' for='edit_history') Edit History: 
+                            input(type='text' disabled name='edit_history' value=user.Edit_History)
+                        br
+                        input(type='submit' value='Edit User')
+                        br
+                        a(href='/loggedout' class='logout' id='/loggedout') Log Out
+                        br
+                div(id='rightSidetop')

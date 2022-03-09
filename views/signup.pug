@@ -1,20 +1,25 @@
 extends layout 
 
 block content 
-    h2 Create an account
+    h2 Create an account:
 
-    form(id='form' method='post' action='/create')
-        label(class='account' for='Username') Username: 
-            input(type='text' name='Username' required)
-        br
-        label(class='account' for='Password') Password: 
-            input(type='password' name='Password' required)
-        br
-        label(class='account' for='PFP') Profile picture (link): 
-            input(type='text' name='PFP' required)
-        br
-        label(class='account' for='Bio') Your Bio: 
-            input(type='text' name='Bio' required)
-        br
+    ul(class="edit_comic")
+            div(id='divider')
+                div(id='leftSidetop')
+                div(id='centerSidetop')
+                    form(id='form' method='post' action='/create')
+                        label(class='account' for='Username') Username: 
+                            input(type='text' name='Username' required)
+                        br
+                        label(class='account' for='Password') Password: 
+                            input(type='password' name='Password' required)
+                        br
+                        label(class='account' for='PFP') Profile picture (link): 
+                            input(type='text' name='PFP' required)
+                        br
+                        label(class='account' for='Bio') Your Bio: 
+                            input(type='text' name='Bio' required)
+                        br
 
-        input(type='submit' value='create user')
+                        input(type='submit' value='Create User')
+                div(id='rightSidetop')
