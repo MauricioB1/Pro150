@@ -42,6 +42,8 @@ exports.comicpage = async (req, res) => {
         console.log("Creating comic");
         res.render('comicpage', {
             title: 'comic page',
+            user_name: config.user[0][1],
+            pfp: config.user[1][1],
             config: config,
             hero: await fetchHero(req.params.heroName),
     
@@ -51,6 +53,8 @@ exports.comicpage = async (req, res) => {
         console.log("Finding comic")
         res.render('comicpage', {
             title: 'comic page',
+            user_name: config.user[0][1],
+            pfp: config.user[1][1],
             config: config,
             hero: findResult,
     
@@ -73,8 +77,13 @@ exports.userpage = async (req, res) => {
 
         res.render("login",{
             user: findUser,
+            user_name: config.user[0][1],
+            pfp: config.user[1][1],
             config:config
         })
+
+
+
         client.close()
     }
     else {
@@ -97,6 +106,8 @@ exports.editcomicpage = async (req, res) => {
         console.log("Creating comic");
         res.render('editcomicpage', {
             title: 'edit comic page',
+            user_name: config.user[0][1],
+            pfp: config.user[1][1],
             config: config,
             hero: await fetchHero(req.params.heroName),
     
@@ -106,6 +117,8 @@ exports.editcomicpage = async (req, res) => {
         console.log("Finding comic")
         res.render('editcomicpage', {
             title: 'edit comic page',
+            user_name: config.user[0][1],
+            pfp: config.user[1][1],
             config: config,
             hero: findResult,
     
@@ -147,6 +160,8 @@ exports.changeComic = async(req, res) => {
 exports.user = (req, res) => {
     res.render('user', {
         title: 'user',
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         config: config
     });
 };
@@ -154,6 +169,8 @@ exports.user = (req, res) => {
 exports.index = (req, res) => {
     res.render('index', {
         title: 'index',
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         config: config
     });
 };
@@ -161,6 +178,8 @@ exports.index = (req, res) => {
 exports.loggedin = (req, res) => {
     res.render('loggedin', {
         title: 'loggedin',
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         config: config
     });
 };
@@ -168,6 +187,8 @@ exports.loggedin = (req, res) => {
 exports.signup = (req, res) => {
     res.render('signup', {
         title: 'signup',
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         config: config
     });
 };
@@ -177,6 +198,8 @@ exports.signup = (req, res) => {
 exports.testpage = async (req, res) => {
     res.render("testpage", {
         title: "TEST",
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         people: await getAllUsers(),
         heroes: await fetchAllHeroes(),
         config: config
@@ -202,8 +225,15 @@ exports.login = async (req, res) =>{
             username: req.body.username,
             id: findUser._id
         }
+
+        config.user[0][1] = req.body.username;
+        config.user[1][1] = findUser.PFP;
+
+
         res.render("login",{
             user: findUser,
+            user_name: config.user[0][1],
+            pfp: config.user[1][1],
             config:config
         })
         client.close()
@@ -223,6 +253,8 @@ exports.edit = async (req, res) => {
     client.close();
     res.render("edit", {
         title: "Edit account",
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         user: filteredDocs[0], 
     });
 };
@@ -283,6 +315,8 @@ exports.search = async (req,res) => {
 
     res.render("results", {
         title: "Results: ",
+        user_name: config.user[0][1],
+        pfp: config.user[1][1],
         config: config,
         results: filtered, 
     });

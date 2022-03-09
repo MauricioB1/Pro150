@@ -3,6 +3,8 @@ const express = require("express"),
     path = require("path"),
     routes = require("./routes/routes.js"),
     expressSession = require("express-session");
+    config = require('./config');
+
 
 const app = express();
 
@@ -46,6 +48,8 @@ app.get('/logout', (req, res) => {
         if(err) {
             console.log(err);
         } else {
+            config.user[0][1] = "Guest";
+            config.user[1][1] = "tempPFP.png";
             res.redirect('/');
         }
     });
