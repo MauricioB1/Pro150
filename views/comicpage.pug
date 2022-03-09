@@ -2,9 +2,15 @@ extends layout
 
 
 block content 
-    p 
-        img(src=hero.images.md)
-    h2 #{hero.name}
-    h2 Full name: #{hero.biography.fullName}
-    h2 Place of birth: #{hero.biography.placeOfBirth}
-    h2 Original Comic Publisher: #{hero.biography.publisher}
+    table(class='com_gridtab' align="center")
+        tr 
+            td(id="hName" colspan="2")
+                h2 #{hero.name}
+        tr 
+            td  
+                p 
+                    img(src=hero.images.md)
+            td
+                h2 Full name: #{hero.biography.fullName}
+                h2 Place of birth: #{hero.biography.placeOfBirth}
+                h2 Original Comic Publisher: #{hero.biography.publisher}

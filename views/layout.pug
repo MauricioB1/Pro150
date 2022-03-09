@@ -10,9 +10,21 @@ html
     body 
         header
             ul(class="title_head")
+                div(id='divider')
+                    div(id='leftSidetop')
+                    div(id='centerSidetop')
+                        img(src="/POW.png" width=160)
+                    div(id='rightSidetop')
+                        form(id='form' action="/results" method='post' style="float: right;")
+                            p 
+                                input(type="text" name="searchText") 
+                                input(type='submit' name="searchBut" value="Search")
+
+
+                            
                 li(id="stuff")
-                    img(src="/POW.png" width=160)
                     h2 Comic Book Wiki
+                
 
 
 
@@ -28,10 +40,10 @@ html
                     //-             li(id=item[0]) #{item[0]}
 
                     //- div(class='search')
-        form(id='form' action="/results" method='post' style="float: right;")
-                p 
-                    input(type="text" name="searchText") 
-                    input(type='submit' name="searchBut" value="Search")
+        //- form(id='form' action="/results" method='post' style="float: right;")
+        //-         p 
+        //-             input(type="text" name="searchText") 
+        //-             input(type='submit' name="searchBut" value="Search")
                 
 block content
         //- h1 #{title}

@@ -6,7 +6,8 @@ block content
     //h3(id='lastHere')=visitedMessage
     div(id='divider') 
         div(id='leftSide') 
-            form(method='post' action='/loggedin' style="float: center;") 
+        div(id='centerSide') 
+            form(method='post' action='/loggedin') 
                 label(class='account' for='username') Username: 
                     input(id='username' type='text' name='username' required placeholder='Username') 
                 br 

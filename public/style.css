@@ -175,8 +175,13 @@ a{
 #leftSide {
 	flex: 1;
 }
+#centerSide {
+	/* flex: 1; */
+	display: inline-block;
+
+}
 #rightSide {
-	flex: 2;
+	flex: 1;
 }
 
 th,td, td > a{
@@ -263,4 +268,18 @@ li #stuff {
     
     cursor: pointer;
     user-select: none;
+}
+
+#leftSidetop {
+	flex: 1;
+}
+#centerSidetop {
+	flex: 1;
+}
+#rightSidetop {
+	flex: 1;
+}
+
+#hName {
+	text-align: center;
 }
