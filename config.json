@@ -1,6 +1,6 @@
 {
     "menu": [
-        ["Home page", "/", ""],
+        ["Home Page", "/", ""],
         ["User Page", "/userpage", ""],
         ["Login/SignUp Page", "/index", ""]
 
