@@ -4,7 +4,7 @@ block content
 
     h1 User Information:
 
-    form(id='form' method:'post' actoin="/edit/" + user._id)
+    form(id='form' method='post' action="/edit/" + user._id)
         img(src=user.PFP width=250)
         br
         label(class='account' for='username') Name: 
@@ -18,4 +18,8 @@ block content
         br   
         label(class='account' for='edit_history') Edit History: 
         input(type='text' disabled name='edit_history' value=user.Edit_History)
+        br
+        input(type='submit' value='edit user')
+        br
+        a(href='/loggedout' class='logout' id='/loggedout') Log Out
         br

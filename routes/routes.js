@@ -203,18 +203,30 @@ exports.edit = async (req, res) => {
 
 exports.editUser = async (req, res) => {
     await client.connect();
-    const updateResult = await collection.updateOne(
-        { _id: ObjectId(req.params.id) },
-        {
-            $set: {
-                Username: req.body.Username,
-                Password: req.body.Password,
-                PFP: req.body.PFP,
-                Bio: req.body.Bio,
-                Edit_History: req.body.Edit_History,
-            },
-        }
-    );
+    if (req.body.password.length == 0) {
+        const updateResult = await collection.updateOne(
+            { _id: ObjectId(req.params.id) },
+            {
+                $set: {
+                    Username: req.body.username,
+                    Bio: req.body.bio,
+                    Edit_History: req.body.edit_History,
+                },
+            }
+        );
+    } else {
+        const updateResult = await collection.updateOne(
+            { _id: ObjectId(req.params.id) },
+            {
+                $set: {
+                    Username: req.body.username,
+                    Password: req.body.password,
+                    Bio: req.body.bio,
+                    Edit_History: req.body.edit_History,
+                },
+            }
+        );
+    }
     client.close();
     res.redirect("/");
 };

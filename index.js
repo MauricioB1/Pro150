@@ -17,7 +17,7 @@ app.get("/", routes.homepage);
 
 app.get("/userpage", routes.userpage);
 app.get("/editcomicpage/:heroName", routes.editcomicpage);
-
+app.post("/edit/:id",urlencodedParser, routes.editUser)
 app.get("/user", routes.user);
 app.get("/index", routes.index);
 //app.get("/loggedin", routes.loggedin);
