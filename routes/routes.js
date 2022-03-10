@@ -22,6 +22,15 @@ exports.homepage = async (req, res) => {
         await fetchHero("620-spider-man"),
         await fetchHero("17-alfred-pennyworth"),
         await fetchHero("470-moon-knight"),
+        await fetchHero("70-batman"),
+        await fetchHero("57-azazel"),
+        await fetchHero("422-machine-man"),
+        await fetchHero("428-man-thing"),
+        await fetchHero("280-ghost-rider"),
+        await fetchHero("145-cable"),
+        await fetchHero("631-stardust"),
+        await fetchHero("692-vibe"),
+        await fetchHero("387-killer-frost")
     ];
 
     res.render("homepage", {
@@ -249,7 +258,7 @@ exports.login = async (req, res) => {
         });
         client.close();
     } else {
-        res.redirect("/");
+        res.redirect("/index");
     }
 };
 

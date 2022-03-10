@@ -2,40 +2,18 @@ extends layout
 
 block content 
     h2 WELCOME TO COMIC WIKI!!! 
-    table(class='gridtable' align="center")
-        tr 
-            th 
-            th 
-                h2 Popular Articles:    
-            th 
-                each hero in heroes 
-                    tr
-                        td   
-                            form(id='form' action="/comicpage/" + hero.slug method='get')
-                                p 
-                                    input(type="text" disabled name="heroName" value=hero.name)
-                                p
-                                    input(type="text" disabled hidden name="heroSlug" value=hero.slug)
-                                p
-                                    input(type='image' src=hero.images.sm)
-                                p
-                        td   
-                            form(id='form' action="/comicpage/" + hero.slug method='get')
-                                p 
-                                    input(type="text" disabled name="heroName" value=hero.name)
-                                p
-                                    input(type="text" disabled hidden name="heroSlug" value=hero.slug)
-                                p
-                                    input(type='image' src=hero.images.sm)
-                                p
-                        td   
-                            form(id='form' action="/comicpage/" + hero.slug method='get')
-                                p 
-                                    input(type="text" disabled name="heroName" value=hero.name)
-                                p
-                                    input(type="text" disabled hidden name="heroSlug" value=hero.slug)
-                                p
-                                    input(type='image' src=hero.images.sm)
-                                p
+    br
+    h2 Popular Articles:    
+            
+    div(class="row")
+        each hero in heroes 
+            form(id='form' class="column" action="/comicpage/" + hero.slug method='get')
+                p 
+                    input(type="text" disabled name="heroName" value=hero.name)
+                p
+                    input(type="text" disabled hidden name="heroSlug" value=hero.slug)
+                p
+                    input(type='image' src=hero.images.sm)
+                p
 
 
