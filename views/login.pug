@@ -20,7 +20,8 @@ block content
                             input(type='text' name='bio' value=user.Bio)
                         br   
                         label(class='account' for='edit_history') Edit History: 
-                            input(type='text' disabled name='edit_history' value=user.Edit_History)
+                            each item in user.Edit_History
+                                input(type='text' disabled name='edit_history' value=item)
                         br
                         input(type='submit' value='Edit User')
                         br

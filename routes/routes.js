@@ -74,7 +74,7 @@ exports.userpage = async (req, res) => {
     //const testPassword = bcrypt.compareSync(req.body.Password,findUser.Password);
     ////if(testPassword){
     //console.log(findUser);
-    console.log("session id: ",req.session.user.id);
+    console.log("session id: ", req.session.user.id);
 
     if (req.session.user.id) {
         res.render("login", {
@@ -144,6 +144,22 @@ exports.changeComic = async (req, res) => {
         { upsert: true }
     );
     console.log(" found: ", updateResult);
+
+    const currUser = await collection.findOne({
+        _id: ObjectId(req.session.user.id),
+    });
+
+    console.log(currUser);
+    await collection.updateOne(
+        { _id: ObjectId(currUser._id) },
+        {
+            $push: {
+                Edit_History: "Updated: " + req.body.heroName,
+            },
+        }
+    );
+    
+
     client.close();
 
     res.redirect("/comicpage/" + hero.slug);
@@ -260,7 +276,6 @@ exports.editUser = async (req, res) => {
                 $set: {
                     Username: req.body.username,
                     Bio: req.body.bio,
-                    Edit_History: req.body.edit_History,
                 },
             }
         );
@@ -272,7 +287,6 @@ exports.editUser = async (req, res) => {
                     Username: req.body.username,
                     Password: req.body.password,
                     Bio: req.body.bio,
-                    Edit_History: req.body.edit_History,
                 },
             }
         );
@@ -299,20 +313,6 @@ exports.create = async (req, res) => {
     config.user[0][1] = newUser.Username;
     config.user[1][1] = newUser.PFP;
 
-    // let heroes = [
-    //     await fetchHero("620-spider-man"),
-    //     await fetchHero("17-alfred-pennyworth"),
-    //     await fetchHero("470-moon-knight"),
-    // ];
-
-    // res.render("homepage", {
-    //     /////////can check the different pages by changing this////////////
-    //     title: "Website",
-    //     user_name: config.user[0][1],
-    //     pfp: config.user[1][1],
-    //     config: config,
-    //     heroes: heroes,
-    // });
     res.redirect("/userpage");
 };
 
@@ -357,7 +357,7 @@ const insertUser = async (request) => {
         Password: request.Password,
         PFP: request.PFP,
         Bio: request.Bio,
-        Edit_History: "Nothing yet...",
+        Edit_History: [],
     };
     const insertResult = await collection.insertOne(user);
 
